@@ -10,6 +10,10 @@ namespace :web do
 end
 
 namespace :db do
+  task :default do
+    backup
+  end
+
   desc "Backups DB server"
   task :backup, :roles => :db do
     puts "Backing up DB server"
