@@ -19,3 +19,20 @@ namespace :db do
     puts "Backing up DB server"
   end
 end
+
+namespace :asserts do
+  desc "Checks free space"
+  task :free_space, :roles => :db do
+    puts "Checking free space"
+  end
+end
+
+namespace :notifier do
+  desc "E-mails admin"
+  task :email_admin, :roles => :db do
+    puts "E-mailing admin"
+  end
+end
+
+before "db:backup", "asserts:free_space"
+after "db:backup", "notifier:email_admin"
