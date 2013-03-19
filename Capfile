@@ -11,7 +11,7 @@ end
 
 namespace :db do
   desc "Backups DB server"
-  task :bakup, :roles => :db do
+  task :backup, :roles => :db do
     puts "Backing up DB server"
   end
 end
