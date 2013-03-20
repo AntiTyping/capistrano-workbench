@@ -1,0 +1,21 @@
+task :deploy do
+  transaction do
+    update_code
+    symlink
+  end
+end
+
+task :update_code do
+  on_rollback { run "rm -rf #{release_path}" }
+  source.checkout(release_path)
+end
+
+task :symlink do
+  on_rollback do
+    run <<-EOC
+      rm #{current_path}
+      ln -s #{previous_release} #{current_path}
+    EOC
+  end
+  run "rm #{current_path}; ln -s #{release_path} #{current_path}"
+end
