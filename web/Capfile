@@ -1,0 +1,13 @@
+set :application, 'example-website'
+
+task :production do
+  set :deploy_to, "/u/apps/#{application}-production/"
+  set :deploy_via, :remote_cache
+  after('deploy:symlink', 'cache:clear')
+end
+
+task :staging do
+  set :deploy_to, "/u/apps/#{application}-staging/"
+  set :deploy_via, :copy
+  after('deploy:symlink', 'cruise_control:build')
+end
