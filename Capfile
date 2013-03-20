@@ -34,5 +34,12 @@ namespace :notifier do
   end
 end
 
+namespace :logs do
+  desc "Follows production log"
+  task :watch do
+    stream("tail -f /u/apps/example.com/log/production.log")
+  end
+end
+
 before "db:backup", "asserts:free_space"
 after "db:backup", "notifier:email_admin"
