@@ -41,5 +41,11 @@ namespace :logs do
   end
 end
 
+set :message, "Hello there"
+
+task :say_hello do
+  puts "Message: #{message}"
+end
+
 before "db:backup", "asserts:free_space"
 after "db:backup", "notifier:email_admin"
